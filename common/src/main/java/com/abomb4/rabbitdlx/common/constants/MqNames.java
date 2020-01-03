@@ -6,10 +6,10 @@ package com.abomb4.rabbitdlx.common.constants;
 public interface MqNames {
 
     /** Exchange name */
-    String DEMO_EXCHANGE_NAME = "rabbitdlx-ex";
+    String DEMO_EXCHANGE_NAME = "demo-ex";
 
     /** Queue name */
-    String DEMO_QUEUE_NAME = "rabbitdlx-queue";
+    String DEMO_QUEUE_NAME = "demo-queue";
 
     /** DLX Exchange name */
     String DLX_EXCHANGE_NAME = "dlx-exchange";
