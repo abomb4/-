@@ -15,6 +15,7 @@
 .classpath
 .settings
 .idea
+*.iml
 
 # Package Files #
 *.jar
