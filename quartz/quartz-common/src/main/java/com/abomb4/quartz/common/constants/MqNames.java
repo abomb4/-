@@ -1,4 +1,4 @@
-package com.abomb4.rabbitdlx.common.constants;
+package com.abomb4.quartz.common.constants;
 
 /**
  * @author abomb4 2020-01-02

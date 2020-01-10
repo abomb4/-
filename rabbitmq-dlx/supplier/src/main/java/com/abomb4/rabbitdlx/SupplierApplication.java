@@ -1,11 +1,10 @@
 package com.abomb4.rabbitdlx;
 
-import com.abomb4.rabbitdlx.common.constants.MqNames;
+import com.abomb4.quartz.common.constants.MqNames;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

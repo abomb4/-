@@ -1,6 +1,6 @@
 package com.abomb4.rabbitdlx;
 
-import com.abomb4.rabbitdlx.common.constants.MqNames;
+import com.abomb4.quartz.common.constants.MqNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 每 5 秒发一个消息
  *
- * @author yangrl14628 2020-01-02
+ * @author abomb4 2020-01-02
  */
 @Slf4j
 public class Supplier {
