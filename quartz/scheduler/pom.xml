@@ -11,6 +11,8 @@
 
     <artifactId>scheduler</artifactId>
 
+    <description>定时任务调度器，仅支持微服务任务</description>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

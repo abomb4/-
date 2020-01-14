@@ -3,12 +3,12 @@ package com.abomb4.quartz.scheduler.core;
 import lombok.*;
 
 /**
- * 固定微服务任务的定义，就是存在数据库里面的数据结构。
+ * 任务的定义，就是存在数据库里面的数据结构。
  *
  * @author abomb4 2020-01-10
  */
 @Data
-public class MicroServiceTaskDefinition {
+public class TaskCoreDefinition {
 
     /** 任务名 */
     private String taskName;
@@ -27,4 +27,7 @@ public class MicroServiceTaskDefinition {
 
     /** Json 串，要支持动态参数的替换 */
     private String jsonContent;
+
+    /** 定时任务类型 */
+    private EnumJobType jobType;
 }

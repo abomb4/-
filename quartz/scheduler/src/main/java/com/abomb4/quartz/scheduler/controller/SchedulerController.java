@@ -1,6 +1,8 @@
-package com.abomb4.quartz.scheduler;
+package com.abomb4.quartz.scheduler.controller;
 
 import com.abomb4.quartz.common.*;
+import com.abomb4.quartz.scheduler.MicroServiceExecutionJob;
+import com.abomb4.quartz.scheduler.QuartzInformation;
 import com.abomb4.quartz.scheduler.dto.*;
 import lombok.extern.slf4j.*;
 import org.quartz.*;
@@ -13,13 +15,24 @@ import java.util.*;
 import static org.quartz.impl.matchers.GroupMatcher.*;
 
 /**
+ * 定时任务 API 。
  *
+ * 系统已经预设了一些定时任务，这个 API 对已有定时任务进行操作，功能不包括添加和删除，包含：
+ * <ul>
+ *     <li>查询列表</li>
+ *     <li>修改（expression、备注，名称没必要改）</li>
+ *     <li>手工触发</li>
+ *     <li>停用启用</li>
+ *     <li>查询执行记录</li>
+ * </ul>
+ *
+ * 系统对定时任务有核心定义，但对外只展示要展示的部分。
  *
  * @author abomb4 2020-01-10
  */
 @RestController
 @Slf4j
-public class SchedulerAction {
+public class SchedulerController {
     private static String JOB_GROUP_NAME = "THE_JOB_GROUP_NAME";
     private static String TRIGGER_GROUP_NAME = "THE_TRIGGER_GROUP_NAME";
 
@@ -27,7 +40,7 @@ public class SchedulerAction {
     private Scheduler scheduler;
 
     @PostMapping(value = "/scheduler/create")
-    public RestResponse<Boolean> create(@RequestBody ScheduleCreateRequest request) {
+    public StandardResponse<Boolean> create(@RequestBody ScheduleCreateRequest request) {
         final String jobName = "job";
 
         final JobDataMap paramMap = new JobDataMap();
@@ -59,23 +72,23 @@ public class SchedulerAction {
             if (!scheduler.isShutdown()) {
                 scheduler.start();
             }
-            return RestResponse.success(true);
+            return StandardResponse.success(true);
         } catch (ObjectAlreadyExistsException e) {
             log.debug("Exists", e);
-            return RestResponse.fail(EnumCommonRestResponseCode.AlreadyExists, "该定时任务已经存在");
+            return StandardResponse.fail(EnumCommonRestResponseCode.AlreadyExists, "该定时任务已经存在");
         } catch (Exception e) {
-            return RestResponse.fail(EnumCommonRestResponseCode.Error, e.getMessage());
+            return StandardResponse.fail(EnumCommonRestResponseCode.Error, e.getMessage());
         }
     }
 
     @PostMapping(value = "/scheduler/remove")
-    public RestResponse<Boolean> remove(@RequestBody ScheduleRemoveRequest request) {
+    public StandardResponse<Boolean> remove(@RequestBody ScheduleRemoveRequest request) {
         try {
             final boolean unscheduled = scheduler.unscheduleJob(new TriggerKey(request.getId(), TRIGGER_GROUP_NAME));
 
-            return RestResponse.success(unscheduled);
+            return StandardResponse.success(unscheduled);
         } catch (Exception e) {
-            return RestResponse.fail(EnumCommonRestResponseCode.Error, e.getMessage());
+            return StandardResponse.fail(EnumCommonRestResponseCode.Error, e.getMessage());
         }
     }
 

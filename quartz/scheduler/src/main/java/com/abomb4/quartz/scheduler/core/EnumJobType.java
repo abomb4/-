@@ -1,4 +1,4 @@
-package com.abomb4.quartz.scheduler.dto;
+package com.abomb4.quartz.scheduler.core;
 
 /**
  * @author abomb4 2020-01-10

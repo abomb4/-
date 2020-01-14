@@ -1,5 +1,6 @@
 package com.abomb4.quartz.scheduler.dto;
 
+import com.abomb4.quartz.scheduler.core.EnumJobType;
 import lombok.*;
 
 /**

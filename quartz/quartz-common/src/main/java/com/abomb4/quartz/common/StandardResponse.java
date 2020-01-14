@@ -6,12 +6,12 @@ import java.io.Serializable;
 import java.util.function.Function;
 
 /**
- * Base Rest API Response
+ * Standard Response
  *
  * @author abomb4
  */
 @Data
-public class RestResponse<T> implements Serializable {
+public class StandardResponse<T> implements Serializable {
 
     /**
      * 返回码，可以参阅 {@link EnumCommonRestResponseCode}
@@ -26,17 +26,17 @@ public class RestResponse<T> implements Serializable {
      */
     private T data;
 
-    public RestResponse() {
+    public StandardResponse() {
     }
 
-    public RestResponse(final String code, final String msg,
+    public StandardResponse(final String code, final String msg,
                         final T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public RestResponse(EnumCommonRestResponseCode code, final T data, final String msg) {
+    public StandardResponse(EnumCommonRestResponseCode code, final T data, final String msg) {
         this.code = code.getCode();
         this.msg = (msg == null || msg.length() == 0) ? code.getMessage() : msg;
         this.data = data;
@@ -58,12 +58,12 @@ public class RestResponse<T> implements Serializable {
      * @param <R>    转换后的类型
      * @return 转换结果，如果是失败的话，还是失败；如果是成功则进行 mapper 转换
      */
-    public <R> RestResponse<R> map(Function<T, R> mapper) {
+    public <R> StandardResponse<R> map(Function<T, R> mapper) {
         if (this.data != null) {
             final R newData = mapper.apply(this.data);
-            return new RestResponse<>(this.code, this.msg, newData);
+            return new StandardResponse<>(this.code, this.msg, newData);
         } else {
-            return new RestResponse<>(this.code, this.msg, null);
+            return new StandardResponse<>(this.code, this.msg, null);
         }
     }
 
@@ -74,7 +74,7 @@ public class RestResponse<T> implements Serializable {
      * @param <T>  数据类型
      * @return 响应类
      */
-    public static <T> RestResponse<T> success(T data) {
+    public static <T> StandardResponse<T> success(T data) {
         return success(data, null);
     }
 
@@ -85,8 +85,8 @@ public class RestResponse<T> implements Serializable {
      * @param <T>  数据类型
      * @return 响应类
      */
-    public static <T> RestResponse<T> success(T data, String message) {
-        return new RestResponse<>(EnumCommonRestResponseCode.OK, data, message);
+    public static <T> StandardResponse<T> success(T data, String message) {
+        return new StandardResponse<>(EnumCommonRestResponseCode.OK, data, message);
     }
 
     /**
@@ -97,11 +97,11 @@ public class RestResponse<T> implements Serializable {
      * @param <T>     数据类型
      * @return 响应类
      */
-    public static <T> RestResponse<T> fail(EnumCommonRestResponseCode code, String message) {
+    public static <T> StandardResponse<T> fail(EnumCommonRestResponseCode code, String message) {
         if (EnumCommonRestResponseCode.OK.equals(code)) {
             throw new IllegalArgumentException("不能在失败请求的创建方法中传入成功代码");
         }
-        return new RestResponse<>(code, null, message);
+        return new StandardResponse<>(code, null, message);
     }
 
     /**
@@ -111,11 +111,11 @@ public class RestResponse<T> implements Serializable {
      * @param <T>  数据类型
      * @return 响应类
      */
-    public static <T> RestResponse<T> fail(EnumCommonRestResponseCode code) {
+    public static <T> StandardResponse<T> fail(EnumCommonRestResponseCode code) {
         if (EnumCommonRestResponseCode.OK.equals(code)) {
             throw new IllegalArgumentException("不能在失败请求的创建方法中传入成功代码");
         }
-        return new RestResponse<>(code, null, code.getMessage());
+        return new StandardResponse<>(code, null, code.getMessage());
     }
 
     /**
@@ -126,10 +126,10 @@ public class RestResponse<T> implements Serializable {
      * @param message 错误信息
      * @return 响应类
      */
-    public static <T> RestResponse<T> fail(String code, String message) {
+    public static <T> StandardResponse<T> fail(String code, String message) {
         if (EnumCommonRestResponseCode.OK.getCode().equals(code)) {
             throw new IllegalArgumentException("不能在失败请求的创建方法中传入成功代码");
         }
-        return new RestResponse<>(code, message, null);
+        return new StandardResponse<>(code, message, null);
     }
 }

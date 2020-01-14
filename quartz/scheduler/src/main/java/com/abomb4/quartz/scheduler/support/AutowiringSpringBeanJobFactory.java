@@ -1,4 +1,4 @@
-package com.abomb4.quartz.scheduler;
+package com.abomb4.quartz.scheduler.support;
 
 import org.quartz.spi.*;
 import org.springframework.beans.factory.config.*;
