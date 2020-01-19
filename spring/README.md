@@ -1,11 +1,11 @@
 # 学 spring
 - 什么是Spring框架？Spring框架有哪些主要模块？
-    - 按 Spring 对自己的简介：
+    - 按 Spring 框架官网的介绍：
     > Spring 框架为基于 Java 开发的企业应用提供了完整的变成与配置模型。
     > Spring 的关键功能是在应用级别提供架构支持：Spring专注于企业应用程序的“管道”，
     > 使开发团队专注于业务逻辑的开发，与特定的部署环境没有关联。
     
-    - Spring 的主要功能：
+    - Spring 框架的主要功能：
     > - 核心功能: 依赖注入, 事件, 资源管理, 国际化, 校验, 数据绑定, 类型转换, 脚本 SpEL, 切片 AOP.
     > - 测试功能：mock 对象, TestContext framework, Spring MVC Test, WebTestClient.
     > - 数据访问：事务框架, DAO support, JDBC, ORM, 对象XML映射 Marshalling XML.
@@ -13,13 +13,33 @@
     > - 技术集成: remoting, JMS, JCA, JMX, email, tasks, scheduling, cache.
     > - 开发语言：Kotlin, Groovy, dynamic languages.
 
+    - Spring 的主要模块？
+        - 核心模块：beans、core、context、expression
+        - 测试：test
+        - 数据访问：jdbc, orm, oxm, jms, tx
+        - Web：web, webflux, webmvc, websocket
+        - AOP：aop, aspects
+
+- 什么是控制反转(IOC)？什么是依赖注入？
+
+    答：“控制反转（IOC）”与“依赖注入（DI）”说明了同一种东西。
+    IOC 是一种“原则”，Spring 的实现要求对象定义其依赖时，只能定义在：
+    - 构造函数的参数
+    - 工厂方法的参数
+    - 由工厂创建并返回的对象实例的属性上
+    
+    遵循此标准，IOC 容器会在创建 bean 的时候进行依赖注入。
+    
+    这种模式是把对象自己找依赖的过程反转过来，不再由对象自行寻找而是由容器进行注入，称为“控制反转”。
+    
+    参考（https://docs.spring.io/spring/docs/5.2.3.RELEASE/spring-framework-reference/core.html#beans-introduction）
+
+- 请解释下Spring框架中的IoC？
 
 
-什么是控制反转(IOC)？什么是依赖注入？
-请解释下Spring框架中的IoC？
-BeanFactory和ApplicationContext有什么区别？
-请解释Spring Bean的生命周期？
-Spring框架中有哪些不同类型的事件？
+- BeanFactory和ApplicationContext有什么区别？
+- 请解释Spring Bean的生命周期？
+- Spring框架中有哪些不同类型的事件？
 
 Spring 框架中都用到了哪些设计模式？
 
