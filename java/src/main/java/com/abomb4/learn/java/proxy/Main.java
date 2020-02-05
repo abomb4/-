@@ -1,5 +1,9 @@
 package com.abomb4.learn.java.proxy;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
 /**
  * 啥是代理？有几种代理？咋创建代理？
  * <p>
@@ -19,6 +23,7 @@ public class Main {
 
     /**
      * 驱动
+     *
      * @param args 无用
      */
     public static void main(String[] args) {
@@ -26,8 +31,48 @@ public class Main {
         final TheInterface originObject = new TheInterfaceImpl();
 
         // 1. 静态代理
-        {
+        final TheInterface staticProxy;
+        staticProxy = new TheStaticProxyOfTheInterface(originObject);
 
+        // 2. JDK 动态代理
+        final TheInterface jdkDynamicProxy;
+        jdkDynamicProxy = (TheInterface) Proxy.newProxyInstance(
+                TheInvocationHandler.class.getClassLoader(),
+                new Class[]{TheInterface.class}, new TheInvocationHandler());
+
+
+        // 3. CGLIB 代理
+        final TheInterface cglibDynamicProxy;
+    }
+
+    /** 1. 静态代理 **/
+    static class TheStaticProxyOfTheInterface implements TheInterface {
+
+        final TheInterface origin;
+
+        TheStaticProxyOfTheInterface(final TheInterface origin) {
+            this.origin = origin;
         }
+
+        @Override
+        public String hello(final String name) {
+            final String hello = origin.hello(name);
+            return "这条 Hello [" + hello + "] 已经被污染啦！";
+        }
+    }
+
+    /** 2. jdk 动态代理 **/
+    static class TheInvocationHandler implements InvocationHandler {
+
+        @Override
+        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
+            log("更加屌的污染！");
+            final Object invoke = method.invoke(proxy, args);
+            return "[" + invoke + "]污染至极！你都不知道哪里把你改了！";
+        }
+    }
+
+    private static void log(String msg) {
+        System.out.println(msg);
     }
 }

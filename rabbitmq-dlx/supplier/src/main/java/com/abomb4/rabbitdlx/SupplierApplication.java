@@ -1,10 +1,12 @@
 package com.abomb4.rabbitdlx;
 
-import com.abomb4.quartz.common.constants.MqNames;
+import com.abomb4.rabbitdlx.common.constants.MqNames;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -53,5 +55,13 @@ public class SupplierApplication {
 	@Bean
 	public Supplier supplier() {
 		return new Supplier();
+	}
+
+
+	@Bean
+	public MessageConverter messageConverter() {
+		final SimpleMessageConverter s = new SimpleMessageConverter();
+		s.setCreateMessageIds(true);
+		return s;
 	}
 }

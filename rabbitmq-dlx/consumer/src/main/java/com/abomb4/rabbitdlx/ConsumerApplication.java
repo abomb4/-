@@ -1,6 +1,6 @@
 package com.abomb4.rabbitdlx;
 
-import com.abomb4.quartz.common.constants.MqNames;
+import com.abomb4.rabbitdlx.common.constants.MqNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.boot.SpringApplication;
@@ -36,6 +36,13 @@ public class ConsumerApplication {
 	public BadConsumer badConsumer() {
 		log.warn("加载坏蛋");
 		return new BadConsumer();
+	}
+
+	@Bean
+	@Profile("bad")
+	public RabbitRetryWithRedisErrorHandler rabbitRetryWithRedisErrorHandler() {
+		log.warn("加载坏蛋 errorhandler");
+		return new RabbitRetryWithRedisErrorHandler();
 	}
 
 	@Bean

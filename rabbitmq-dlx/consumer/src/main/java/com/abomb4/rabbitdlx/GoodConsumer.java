@@ -16,7 +16,7 @@ public class GoodConsumer {
 
     private void receive(String in) throws InterruptedException {
         log.info("收到消息 [{}]，准备一秒后正常消化", in);
-        Thread.sleep(1000);
+        Thread.sleep(1);
         log.info("消化 [{}] 完成", in);
     }
 }

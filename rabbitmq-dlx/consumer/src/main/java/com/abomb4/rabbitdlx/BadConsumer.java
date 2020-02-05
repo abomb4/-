@@ -10,7 +10,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 @Slf4j
 public class BadConsumer {
 
-    @RabbitListener(queues = "#{demoQueue.name}")
+    @RabbitListener(queues = "#{demoQueue.name}", errorHandler = "rabbitRetryWithRedisErrorHandler")
     public void receive1(String in) throws InterruptedException {
         receive(in);
     }
@@ -18,6 +18,6 @@ public class BadConsumer {
     private void receive(String in) throws InterruptedException {
         log.info("收到消息 [{}]，准备一秒后爆异常", in);
         Thread.sleep(1000);
-        throw new AmqpRejectAndDontRequeueException("炸了");
+        throw new RuntimeException("炸了");
     }
 }

@@ -1,6 +1,6 @@
 package com.abomb4.rabbitdlx;
 
-import com.abomb4.quartz.common.constants.MqNames;
+import com.abomb4.rabbitdlx.common.constants.MqNames;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;

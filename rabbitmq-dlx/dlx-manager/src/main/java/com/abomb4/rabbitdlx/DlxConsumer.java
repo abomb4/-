@@ -1,6 +1,6 @@
 package com.abomb4.rabbitdlx;
 
-import com.abomb4.quartz.common.constants.MqHeaders;
+import com.abomb4.rabbitdlx.common.constants.MqHeaders;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
